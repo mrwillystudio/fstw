@@ -20,8 +20,8 @@
 
 	<p><strong>Message:</strong> $comment </p>
 
-	<p><strong>Sending IP:</strong> "+$_SERVER['REMOTE_ADDR']+"<br />
-	<strong>Sent via:</strong> "+$_SERVER['HTTP_HOST']+"</p>
+	<p><strong>Sending IP:</strong> "+$_SERVER[REMOTE_ADDR]+"<br />
+	<strong>Sent via:</strong> "+$_SERVER[HTTP_HOST]+"</p>
 	</div>";
 
 	// Send and check the message status
