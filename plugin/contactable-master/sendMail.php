@@ -56,7 +56,7 @@
 		$result = $mail->Send();
 		$output = json_encode(array(
 			"response" => (($result) ? "success" : "failure"),
-			"result" => $result,
+			"result" => $mail->ErrorInfo,
 			"version" => "008"
 		));
 		header('content-type: application/json; charset=utf-8');
