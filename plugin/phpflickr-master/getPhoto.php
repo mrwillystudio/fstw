@@ -5,6 +5,7 @@ if($_GET["pid"]) {
     require_once("./phpFlickr.php");
     $f = new phpFlickr("0b59e5a973367dbb171a86756d5ae480");
     $f->enableCache("db", "mysql://mrtasiwilly:root@127.0.0.1/c9");
+    //$f->enableCache("db", "mysql://mrwillystudio:root@127.0.0.1/flickr");
     
     $photosets_info = $f->photosets_getInfo($photoset_id = $_GET["pid"]);
     $photosets_photos = $f->photosets_getPhotos($photoset_id = $_GET["pid"]);

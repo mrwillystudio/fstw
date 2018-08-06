@@ -50,7 +50,11 @@
                     <a data-href=""><h6 data-animation-css="fadeInDown" data-animation-delay="500">MR.DING & MRS.QUAN 台北福華 <i className="fa fa-sign-out fa-fw" aria-hidden="true"></i></h6></a>
                 </div>
                 <div className="section-refs" data-animation-css="fadeInRight" data-animation-delay="500" data-ref="the_refs">
-                    <ul><li className="active"></li><li></li><li></li></ul>
+                    <ul>
+                        <li className="active">單儀式</li>
+                        <li>儀式宴客</li>
+                        <li>全日方案</li>
+                    </ul>
                 </div>
                 <div data-animation-css="fadeIn" data-animation-delay="500" className="section-block col-xs-12">
                     <h3>單儀式</h3>
@@ -66,7 +70,11 @@
                     <a data-href=""><h6 data-animation-css="fadeInDown" data-animation-delay="500">MR.DING & MRS.QUAN 台北福華 <i className="fa fa-sign-out fa-fw" aria-hidden="true"></i></h6></a>
                 </div>
                 <div className="section-refs" data-animation-css="fadeInRight" data-animation-delay="500" data-ref="the_refs">
-                    <ul><li></li><li className="active"></li><li></li></ul>
+                    <ul>
+                        <li>單儀式</li>
+                        <li className="active">儀式宴客</li>
+                        <li>全日方案</li>
+                    </ul>
                 </div>
                 <div data-animation-css="fadeIn" data-animation-delay="500" className="section-block col-xs-12">
                     <h3>儀式宴客</h3>
@@ -82,7 +90,11 @@
                     <a data-href=""><h6 data-animation-css="fadeInDown" data-animation-delay="500">MR.DING & MRS.QUAN 台北福華 <i className="fa fa-sign-out fa-fw" aria-hidden="true"></i></h6></a>
                 </div>
                 <div className="section-refs" data-animation-css="fadeInRight" data-animation-delay="500" data-ref="the_refs">
-                    <ul><li></li><li></li><li className="active"></li></ul>
+                    <ul>
+                        <li>單儀式</li>
+                        <li>儀式宴客</li>
+                        <li className="active">全日方案</li>
+                    </ul>
                 </div>
                 <div data-animation-css="fadeIn" data-animation-delay="500" className="section-block col-xs-12">
                     <h3>全日方案</h3>
@@ -100,7 +112,11 @@
                     <a data-href=""><h6 data-animation-css="fadeInDown" data-animation-delay="500">MR.DING & MRS.QUAN 台北福華 <i className="fa fa-sign-out fa-fw" aria-hidden="true"></i></h6></a>
                 </div>
                 <div className="section-refs" data-animation-css="fadeInRight" data-animation-delay="500" data-ref="the_refs">
-                    <ul><li className="active"></li><li></li><li></li></ul>
+                    <ul>
+                        <li className="active">自助方案</li>
+                        <li>小資方案</li>
+                        <li>經典方案</li>
+                    </ul>
                 </div>
                 <div data-animation-css="fadeIn" data-animation-delay="500" className="section-block col-xs-12">
                     <h3>自助方案</h3>
@@ -135,7 +151,11 @@
                     <a data-href=""><h6 data-animation-css="fadeInDown" data-animation-delay="500">MR.DING & MRS.QUAN 台北福華 <i className="fa fa-sign-out fa-fw" aria-hidden="true"></i></h6></a>
                 </div>
                 <div className="section-refs" data-animation-css="fadeInRight" data-animation-delay="500" data-ref="the_refs">
-                    <ul><li></li><li className="active"></li><li></li></ul>
+                    <ul>
+                        <li>自助方案</li>
+                        <li className="active">小資方案</li>
+                        <li>經典方案</li>
+                    </ul>
                 </div>
                 <div data-animation-css="fadeIn" data-animation-delay="500" className="section-block col-xs-12">
                     <h3>小資方案</h3>
@@ -170,7 +190,11 @@
                     <a data-href=""><h6 data-animation-css="fadeInDown" data-animation-delay="500">MR.DING & MRS.QUAN 台北福華 <i className="fa fa-sign-out fa-fw" aria-hidden="true"></i></h6></a>
                 </div>
                 <div className="section-refs" data-animation-css="fadeInRight" data-animation-delay="500" data-ref="the_refs">
-                    <ul><li></li><li></li><li className="active"></li></ul>
+                    <ul>
+                        <li>自助方案</li>
+                        <li>小資方案</li>
+                        <li className="active">經典方案</li>
+                    </ul>
                 </div>
                 <div data-animation-css="fadeIn" data-animation-delay="500" className="section-block col-xs-12">
                     <h3>經典方案</h3>

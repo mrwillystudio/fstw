@@ -4,6 +4,7 @@ header("Content-Type:text/html; charset=utf-8");
 require_once("./phpFlickr.php");
 $f = new phpFlickr("0b59e5a973367dbb171a86756d5ae480");
 $f->enableCache("db", "mysql://mrtasiwilly:root@127.0.0.1/c9");
+//$f->enableCache("db", "mysql://mrwillystudio:root@127.0.0.1/flickr");
 
 $user_name = 'Mr.Willy.Studio';
 $user_info = $f->people_findByUsername($username = $user_name);

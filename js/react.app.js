@@ -91,7 +91,7 @@
         render() {
             return (
                <div className={this.props.sc} ref="the_controller">
-        		    <a className="section-logo" data-target="#layout-home" data-href="index" data-animation-type="opacity" title="回首頁">FOTOSNIPER</a>
+        		    <a className="section-logo" data-target="#layout-home" data-href="index" title="回首頁">FOTOSNIPER</a>
         		    <a className="section-button sr-button" data-target="#layout-portfolio" href="portfolio" title="回作品相冊"><i className="fa fa-backward" aria-hidden="true"></i></a>
         			<div className="section-border" data-animation-type="half-height"></div>
         			<div className="section-buttons sr-button">
@@ -342,6 +342,7 @@
                                 <a className="section-wrapper" data-photoset={d.id}></a>
                                 <div className="section-block">
                                     <h2>{d['title']['_content'].split(":")[0]}</h2>
+                                    { /* Location */ }
                                     <span>{d['description']['_content'].split(/(\r\n|\n)/gm).length>2 && d['description']['_content'].split(/(\r\n|\n)/gm)[2].split(":")[1]}</span>
                                 </div>
                             </div>
@@ -374,7 +375,7 @@
 			    PageAnimation(t);
 			    self.props.xscroll.scrollTop(0);
 			    
-			    self.setState({data: null});
+			    self.setState({data: null, content: null});
         		$.get('./plugin/phpflickr-master/getPhoto.php', {pid: id}).done(function(data) {
         		    $('[data-animation-type="opacity"]', $this).css('transition', 'all 0s ease').css('opacity', '0');
                     self.setState({data: data ? JSON.parse(data) : null});
@@ -479,7 +480,6 @@
                 $this = $(React.findDOMNode(this.refs.the_container)),
                 $ctl = $this.parentsUntil(".container").parent().find('[data-ref="the_controller"]'),
                 $lobg = $this.parentsUntil(".page-layout").parent().find('.background ul.background-block');
-            console.log($lobg);
             $ctl.on('tap', '[data-func="previous-page"]', function(e){
                 var l = SectionServiceContent.length,
                     i = self.state.data-1<=-1 ? l-1 : self.state.data-1;
@@ -770,7 +770,11 @@
         		    <div className="footer-border" data-animation-type="width"></div>
         			<ul className="footer-block">
         				<li>fotosniper photography<br/>Copyright © All rights reserved.</li>
-        				<li>影像狙擊手<br/>高雄婚攝．婚攝推薦．自助婚紗．婚禮紀錄</li>
+        				<li >影像狙擊手<br/>高雄婚攝．婚攝推薦．自助婚紗．婚禮紀錄</li>
+        				<li>
+        				    <i className="fa fa-share fa-fw" aria-hidden="true"></i> <u>2017 KUAS HOMECOMING</u><br/>
+        				    <i className="fa fa-youtube-play fa-fw" aria-hidden="true"></i> Anna Leone - My Soul I (Official Video)<br/>
+        				</li>
         			</ul>
         		</div>
             );
@@ -790,6 +794,7 @@
 		    }
         }
         componentDidMount(){
+            console.log( this.props );
             var self = this,
                 $this = $(React.findDOMNode(this.refs.the_container)),
                 $btn = $(React.findDOMNode(this.refs.the_button), $this),
