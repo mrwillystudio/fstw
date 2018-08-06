@@ -57,7 +57,7 @@
 		$output = json_encode(array(
 			"response" => (($result) ? "success" : "failure"),
 			"result" => $result,
-			"version" => 008
+			"version" => "008"
 		));
 		header('content-type: application/json; charset=utf-8');
 		echo($output);
@@ -65,7 +65,7 @@
 		$output = json_encode(array(
 			"response" => "failure",
 			"result" => 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo,
-			"version" => 008
+			"version" => "008"
 		));
 		header('content-type: application/json; charset=utf-8');
 		echo($output);
