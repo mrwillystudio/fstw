@@ -50,6 +50,7 @@
 		$mail->Port = "465";
 		$mail->SetFrom($address, 'Fotosniper.tw Offical Website');
 		$mail->AddReplyTo($address, "Fotosniper.tw Offical Emailer");
+		$mail->addAddress($address, 'Fotosniper.tw');
 		$mail->Subject = $subject;
 		$mail->MsgHTML($message);
 		
@@ -57,7 +58,7 @@
 		$output = json_encode(array(
 			"response" => (($result) ? "success" : "failure"),
 			"result" => $mail->ErrorInfo,
-			"version" => "008"
+			"version" => "010"
 		));
 		header('content-type: application/json; charset=utf-8');
 		echo($output);
@@ -65,7 +66,7 @@
 		$output = json_encode(array(
 			"response" => "failure",
 			"result" => 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo,
-			"version" => "008"
+			"version" => "010"
 		));
 		header('content-type: application/json; charset=utf-8');
 		echo($output);
