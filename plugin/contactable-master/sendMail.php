@@ -39,26 +39,35 @@
 	</div>";
 
 	// Send and check the message status
-	$mail->IsSMTP();
-	$mail->Host = "smtp.gmail.com";
-	$mail->SMTPDebug  = 2;
-	$mail->SMTPAuth = true;
-	$mail->SMTPSecure = "ssl";
-	$mail->Username = $address;
-	$mail->Password = "fstwmailer";
-	$mail->Port = "465";
-	$mail->SetFrom($address, 'Fotosniper.tw Offical Website');
-	$mail->AddReplyTo($address, "Fotosniper.tw Offical Emailer");
-	$mail->Subject = $subject;
-	$mail->MsgHTML($message);
-	
-	$result = $mail->Send();
-	$output = json_encode(array(
-		"response" => (($result) ? "success" : "failure"),
-		"result" => $result,
-		"version" => 007
-	));
-
-	header('content-type: application/json; charset=utf-8');
-	echo($output);
+	try{
+		$mail->IsSMTP();
+		$mail->Host = "smtp.gmail.com";
+		$mail->SMTPDebug  = 2;
+		$mail->SMTPAuth = true;
+		$mail->SMTPSecure = "ssl";
+		$mail->Username = $address;
+		$mail->Password = "fstwmailer";
+		$mail->Port = "465";
+		$mail->SetFrom($address, 'Fotosniper.tw Offical Website');
+		$mail->AddReplyTo($address, "Fotosniper.tw Offical Emailer");
+		$mail->Subject = $subject;
+		$mail->MsgHTML($message);
+		
+		$result = $mail->Send();
+		$output = json_encode(array(
+			"response" => (($result) ? "success" : "failure"),
+			"result" => $result,
+			"version" => 008
+		));
+		header('content-type: application/json; charset=utf-8');
+		echo($output);
+	} catch (Exception $e) {
+		$output = json_encode(array(
+			"response" => "failure",
+			"result" => 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo,
+			"version" => 008
+		));
+		header('content-type: application/json; charset=utf-8');
+		echo($output);
+	}
 ?>
