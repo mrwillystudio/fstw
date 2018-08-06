@@ -4,9 +4,13 @@
 	ini_set('display_errors','On');
 	
 	// init
-	require('includes/Exception.php');
-	require('includes/PHPMailer.php');
-    include('includes/SMTP.php');
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+
+	require('./src/Exception.php');
+	require('./src/PHPMailer.php');
+    require('./src/SMTP.php');
+    
     $mail = new PHPMailer(); 
     
 	// Assign contact info
@@ -37,7 +41,7 @@
 	// Send and check the message status
 	$mail->IsSMTP();
 	$mail->Host = "smtp.gmail.com";
-	$mail->SMTPDebug  = 1;
+	$mail->SMTPDebug  = 2;
 	$mail->SMTPAuth = true;
 	$mail->SMTPSecure = "ssl";
 	$mail->Username = $address;
@@ -49,7 +53,7 @@
 	$mail->MsgHTML($message);
 	
 	$result = $mail->Send();
-	$output = json_encode(array("response" => (($result) ? "success" : "failure"), "result" => $mail));
+	$output = json_encode(array("response" => (($result) ? "success" : "failure"), "result" => $result));
 
 	header('content-type: application/json; charset=utf-8');
 	echo($output);
