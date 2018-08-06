@@ -9,9 +9,9 @@
 
 	require('./src/Exception.php');
 	require('./src/PHPMailer.php');
-    require('./src/SMTP.php');
+	require('./src/SMTP.php');
     
-    $mail = new PHPMailer(); 
+	$mail = new PHPMailer(); 
     
 	// Assign contact info
 	$address = 'fotosniper.tw@gmail.com';
@@ -53,7 +53,11 @@
 	$mail->MsgHTML($message);
 	
 	$result = $mail->Send();
-	$output = json_encode(array("response" => (($result) ? "success" : "failure"), "result" => $result));
+	$output = json_encode(array(
+		"response" => (($result) ? "success" : "failure"),
+		"result" => $result,
+		"version" => 007
+	));
 
 	header('content-type: application/json; charset=utf-8');
 	echo($output);
