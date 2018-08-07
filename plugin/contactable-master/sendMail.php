@@ -48,8 +48,8 @@
 		$mail->Username = $address;
 		$mail->Password = "fstwmailer";
 		$mail->Port = "465";
-		$mail->SetFrom($address, 'Fotosniper.tw Offical Website');
-		$mail->AddReplyTo($address, "Fotosniper.tw Offical Emailer");
+		$mail->SetFrom($address, 'Fotosniper.tw Offical Messenger');
+		$mail->AddReplyTo($address, "Fotosniper.tw Offical Messenger");
 		$mail->addAddress($address, 'Fotosniper.tw');
 		$mail->Subject = $subject;
 		$mail->MsgHTML($message);
@@ -60,7 +60,6 @@
 			"result" => $mail->ErrorInfo,
 			"version" => "010"
 		));
-		header('content-type: application/json; charset=utf-8');
 		echo($output);
 	} catch (Exception $e) {
 		$output = json_encode(array(
@@ -68,7 +67,6 @@
 			"result" => 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo,
 			"version" => "010"
 		));
-		header('content-type: application/json; charset=utf-8');
 		echo($output);
 	}
 ?>

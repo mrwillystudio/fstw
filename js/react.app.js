@@ -335,7 +335,7 @@
         render() {
             return (
                 <div className="section-portfolio row" ref="the_protfolio">
-                    {this.state.data && this.state.data.map(function(d, i){
+                    {this.state.data ? this.state.data.map(function(d, i){
                         return (
                             <div className="section-photosets col-xs-12 col-sm-4" data-animation-one="true">
                                 <img src={d.url}/>
@@ -347,7 +347,12 @@
                                 </div>
                             </div>
                         );
-                    })}
+                    }) : (
+                        <div className="section-loader">
+                            <i className="fa fa-circle-o-notch fa-spin fa-fx fa-fw"></i>
+                            <span>LOADING...</span>
+                        </div>
+                    )}
                 </div>
             );
         }
@@ -368,14 +373,13 @@
         		    a = $('.page-layout.active'),
 			        t = $("#layout-photoset");
 			    if(a.css('right')!='0px') return false;
+			    self.setState({data: null, content: null});
 			    a.removeClass('active');
         		t.css('transition', 'all 0s ease').css('right', '-100%').addClass('active');
 			    setTimeout(function(){t.css('transition', 'all 1s ease').css('right', '0');}, 0);
 			    setTimeout(function(){a.removeAttr('style').css('transition', 'all 0s ease');}, 950);
 			    PageAnimation(t);
 			    self.props.xscroll.scrollTop(0);
-			    
-			    self.setState({data: null, content: null});
         		$.get('./plugin/phpflickr-master/getPhoto.php', {pid: id}).done(function(data) {
         		    $('[data-animation-type="opacity"]', $this).css('transition', 'all 0s ease').css('opacity', '0');
                     self.setState({data: data ? JSON.parse(data) : null});
@@ -420,49 +424,56 @@
         render() {
             return (
                 <div className="xs-content col-xs-12 col-sm-9">
-                    <div className="section-photoset" ref="the_photoset" data-animation-type="opacity">
-                        {/* 相冊音樂 MUSIC */}
-                        {this.state.content && this.state.content['MUSIC'] && (
-                            <MusicComponent videoId={this.state.content['MUSIC'].replace(' ', '')}/>
-                        )}
-                        <div className="section-block">
-                            {/* 相冊標題 TITLE */}
-                            {this.state.data && (<h1>{this.state.data['info']['title']['_content']}</h1>)}
-                            {/* 相冊類別 CATEGORY */}
-                            {this.state.content && this.state.content['CATEGORY'] && (
-                                <h2>
-                                   CATEGORY:<small>{this.state.content['CATEGORY']}</small>
-                                </h2>
+                    {this.state.data!=null ? (
+                        <div className="section-photoset" ref="the_photoset" data-animation-type="opacity">
+                            {/* 相冊音樂 MUSIC */}
+                            {this.state.content && this.state.content['MUSIC'] && (
+                                <MusicComponent videoId={this.state.content['MUSIC'].replace(' ', '')}/>
                             )}
-                            {/* 相冊地區 LOCATION */}
-                            {this.state.content && this.state.content['LOCATION'] && (
-                                <h2>
-                                    LOCATION:<small>{this.state.content['LOCATION']}</small>
-                                </h2>
-                            )}
-                            {/* 相冊攝影 PHOTOGRAPHER */}
-                            {this.state.content && this.state.content['PHOTOGRAPHER'] && (
-                                <h2>
-                                    PHOTOGRAPHER:<small>{this.state.content['PHOTOGRAPHER']}</small>
-                                </h2>
-                            )}
-                            {/* 相冊內文 CONTENT */}
-                            {this.state.content && this.state.content['CONTENT'] && (
-                                <div className="section-content">
-                                    {this.state.content['CONTENT']}
-                                </div>
-                            )}
+                            <div className="section-block">
+                                {/* 相冊標題 TITLE */}
+                                {this.state.data && (<h1>{this.state.data['info']['title']['_content']}</h1>)}
+                                {/* 相冊類別 CATEGORY */}
+                                {this.state.content && this.state.content['CATEGORY'] && (
+                                    <h2>
+                                       CATEGORY:<small>{this.state.content['CATEGORY']}</small>
+                                    </h2>
+                                )}
+                                {/* 相冊地區 LOCATION */}
+                                {this.state.content && this.state.content['LOCATION'] && (
+                                    <h2>
+                                        LOCATION:<small>{this.state.content['LOCATION']}</small>
+                                    </h2>
+                                )}
+                                {/* 相冊攝影 PHOTOGRAPHER */}
+                                {this.state.content && this.state.content['PHOTOGRAPHER'] && (
+                                    <h2>
+                                        PHOTOGRAPHER:<small>{this.state.content['PHOTOGRAPHER']}</small>
+                                    </h2>
+                                )}
+                                {/* 相冊內文 CONTENT */}
+                                {this.state.content && this.state.content['CONTENT'] && (
+                                    <div className="section-content">
+                                        {this.state.content['CONTENT']}
+                                    </div>
+                                )}
+                            </div>
+                            <div data-ref="the_photos" ref="the_photos">
+                                {this.state.data && this.state.data['photos'].map(function(d, i){
+                                    return (
+                                        <a className="photoset-item loading-lazy">
+                                            <img className="lazy" data-src={d.url}/>
+                                        </a>
+                                    );
+                                })}
+                            </div>
                         </div>
-                        <div data-ref="the_photos" ref="the_photos">
-                            {this.state.data && this.state.data['photos'].map(function(d, i){
-                                return (
-                                    <a className="photoset-item loading-lazy">
-                                        <img className="lazy" data-src={d.url}/>
-                                    </a>
-                                );
-                            })}
+                    ) : (
+                        <div className="section-loader white">
+                            <i className="fa fa-circle-o-notch fa-spin fa-fx fa-fw"></i>
+                            <span>LOADING...</span>
                         </div>
-                    </div>
+                    )}
                 </div>
             );
         }
@@ -526,8 +537,8 @@
                 $this = $(React.findDOMNode(this.refs.the_container)),
                 $table = $this.find('#email-table');
             $table.contactable({
-                subject: 'Fotosniper.tw Offical Website Email // feedback URL:'+location.href,
-                header: '<b>Fotosniper.tw Offical Website Email</b><p>請事先於網站上瀏覽過我們的作品。</p>',
+                subject: 'Fotosniper.tw Offical Messenger',
+                header: '<b>Fotosniper.tw Offical Messenger</b><p>請事先於網站上瀏覽過我們的作品。</p>',
                 url: './plugin/contactable-master/sendMail.php',
                 name: '新人姓名 Name',
                 email: '聯絡信箱 Email',
@@ -615,11 +626,9 @@
         		var obj = $this.find($(this).attr("data-target"));
         		if(obj.hasClass("in")){
         			obj.removeClass("in");
-        			obj.animateCss("fadeOutUp");
         			$(this).addClass("collapsed");
         		}else{
         			obj.addClass("in");
-        			obj.animateCss("fadeInDown");
         			$(this).removeClass("collapsed");
         		}
         	});
@@ -794,7 +803,6 @@
 		    }
         }
         componentDidMount(){
-            console.log( this.props );
             var self = this,
                 $this = $(React.findDOMNode(this.refs.the_container)),
                 $btn = $(React.findDOMNode(this.refs.the_button), $this),
