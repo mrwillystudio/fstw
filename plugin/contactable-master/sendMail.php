@@ -46,7 +46,7 @@
 		$mail->SMTPAuth = true;
 		$mail->SMTPSecure = "ssl";
 		$mail->Username = $address;
-		$mail->Password = "fstwmailer";
+		$mail->Password = "iljcuyugueljewjn";
 		$mail->Port = "465";
 		$mail->SetFrom($address, 'Fotosniper.tw Offical Messenger');
 		$mail->AddReplyTo($address, "Fotosniper.tw Offical Messenger");

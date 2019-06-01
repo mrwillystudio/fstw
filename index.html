@@ -3,7 +3,7 @@
 <head>
     
     <title>FotoSniper 影像狙擊手︱高雄婚攝．婚攝推薦．自助婚紗．婚禮紀錄</title>
-    <meta name="description" content="Hi-MAN" />
+    <meta name="description" content="FotoSniper" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="高雄婚攝 高雄推薦 自助婚紗 婚紗攝影 婚禮攝影 婚禮紀錄 婚禮紀實 攝影 紀錄 紀實 平面 寫真 婚攝 高雄" />
@@ -11,7 +11,7 @@
     <meta property="og:title" content="FotoSniper 影像狙擊手︱高雄婚攝．婚攝推薦．自助婚紗．婚禮紀錄"></meta>
     <meta property="og:type" content="photographer"></meta>
     <meta property="og:url" content="http://www.fotosniper.tw/"></meta>
-    <meta property="og:image" content="http://www.hi-man.tw/images/fbimage.jpg"></meta>
+    <meta property="og:image" content="http://www.FotoSniper.tw/images/fbimage.jpg"></meta>
     <meta property="og:location" content="Kaohsiung City 831, Taiwan 高雄市大寮區"></meta>
     <meta property="og:description" content="現在就預約紀錄幸福的婚攝團隊！不斷嘗試從不同角度和思維記錄幸福的每一刻，歡迎和我們說說你們的故事。"/></meta>
     <!-- meta property="fb:app_id" content="" /-->
@@ -24,7 +24,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Theme CSS -->
     <link href="css/style.css" rel="stylesheet">
-
+    <link href="./plugin/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css" rel="stylesheet">
     <!-- Favicon and touch icons -->
     <link rel="icon" href="images/favicon.ico">
     <link rel="shortcut icon" href="images/favicon.png">
@@ -38,10 +38,12 @@
     
     <div id="layout-home" class="page-layout active"></div>
     <div id="layout-about" class="page-layout"></div>
+    <div id="layout-blog" class="page-layout"></div>
     <div id="layout-evaluate" class="page-layout"></div>
     <div id="layout-portfolio" class="page-layout"></div>
     <div id="layout-photoset" class="page-layout" data-h="ture"></div>
     <div id="layout-service" class="page-layout"></div>
+    <div id="layout-vendor" class="page-layout"></div>
     <div id="layout-contactus" class="page-layout"></div>
 	
     <!-- jQuery -->
@@ -49,7 +51,9 @@
 	<script>window.jQuery || document.write('<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"><\/script>')</script>
 	<script type="text/javascript" src="./plugin/jquery.mobile-events/jquery.mobile-events.min.js"></script>
 	<script type="text/javascript" src="./plugin/jquery.cookie/jquery.cookie-1.4.1.min.js"></script>
-    <script type="text/javascript"  src="./plugin/jquery.mousewheel/jquery.mousewheel.js"></script>
+    <!--script type="text/javascript"  src="./plugin/jquery.mousewheel/jquery.mousewheel.js"></script-->
+    <!--script type="text/javascript" src="./plugin/xscroll/xscroll.min.js"></script-->
+    <script type="text/javascript"  src="./plugin/jquery.mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
 	
     <!-- Bootstrap Core JavaScript -->
     <script src="plugin/bootstrap/script/bootstrap.min.js"></script>
@@ -57,7 +61,6 @@
     <!-- Plugin JavaScript -->
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script type="text/javascript" src="./plugin/scrollreveal/scrollreveal.min.js"></script>
-    <script type="text/javascript" src="./plugin/xscroll/xscroll.min.js"></script>
     <script type="text/javascript" src="./plugin/magnific-popup/jquery.magnific-popup.min.js"></script>
 	<script type="text/javascript" src="./plugin/createjs/creative.min.js"></script>
 	<script type="text/javascript" src="./plugin/masonry/masonry.pkgd.min.js"></script>

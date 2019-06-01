@@ -1,0 +1,22 @@
+5/30
+
+1. photoset 隱藏式 左右頁按鈕 (新類型 section outside)
+
+[ 達成 ] 2. photoset in mobile top menu
+
+3. portfolio 條列式選單 (新類型 section outside)
+
+4. portfolio 分類標籤
+
+5. photoset 延伸閱讀 (同分類, 隨機者)
+
+
+
+
+6/1
+
+1. mobile top menu 統一形式, 讓主頁更靈活
+
+2. router 及 動態url
+
+3. photoset 前後頁按鈕設定

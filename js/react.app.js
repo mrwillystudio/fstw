@@ -17,7 +17,8 @@
         			<div className="section-buttons sr-button">
             			<a href='https://www.facebook.com/fotosniper.tw' target='_blank' title='Facebook'><i className="fa fa-facebook" aria-hidden="true"></i></a>
             			<a href='https://www.instagram.com/fotosniper.tw' target='_blank' title='Instagram'><i className="fa fa-instagram" aria-hidden="true"></i></a>
-            			<a href='https://www.flickr.com/' target='_blank' title='Flickr'><i className="fa fa-flickr" aria-hidden="true"></i></a>
+            			<a href='https://www.flickr.com/photos/mrwillystudio' target='_blank' title='Flickr'><i className="fa fa-flickr" aria-hidden="true"></i></a>
+            			<a href='https://line.me/ti/p/vRVXRRah0X' target='_blank' title='LINE'><i className="fa fa-commenting-o" aria-hidden="true"></i></a>
             			<a href={'https://www.facebook.com/sharer/sharer.php?u='+location.href} target='_blank' title='Share'><i className="fa fa-share-alt" aria-hidden="true"></i></a>
             		</div>
         		</div>
@@ -70,7 +71,7 @@
             setTimeout(function(){
                 $photos.masonry('layout');
                 setTimeout(function(){$($this).trigger('swipe').trigger('resize'); }, 400);
-            }, 1001);
+            }, 1100);
         }
         handleLayoutStory(e){
             var $btn = $(React.findDOMNode(this.refs.the_layout_story)),
@@ -87,12 +88,21 @@
         componentWillMount(){
         }
         componentDidMount(){
+            var $ctl = $(React.findDOMNode(this.refs.the_controller)),
+                $btn = $(React.findDOMNode(this.refs.the_layout_story)),
+                $panel = $ctl.parentsUntil(".container").length > 0 ? $ctl.parentsUntil(".container").parent() : $ctl.parent();
+            
+            // UNINITIALIZE //
+            $ctl.on("tap", "a[data-target]", function(e){
+                $btn.addClass('active').siblings().removeClass('active');
+                $panel.trigger('stopPlayer').trigger('uninitPhotoset');
+            })
         }
         render() {
             return (
                <div className={this.props.sc} ref="the_controller">
-        		    <a className="section-logo" data-target="#layout-home" data-href="index" title="回首頁">FOTOSNIPER</a>
-        		    <a className="section-button sr-button" data-target="#layout-portfolio" href="portfolio" title="回作品相冊"><i className="fa fa-backward" aria-hidden="true"></i></a>
+        		    <a className="section-logo" data-target="#layout-home" data-href="index" title="回首頁 HOME">FOTOSNIPER</a>
+        		    <a className="section-button sr-button" data-target="#layout-portfolio" href="portfolio" title="回作品相冊 PORTFOLIO"><i className="fa fa-backward" aria-hidden="true"></i></a>
         			<div className="section-border" data-animation-type="half-height"></div>
         			<div className="section-buttons sr-button">
         			    <a className="pointer" onClick={this.handleLayoutJustified} title="平均對齊檢視" ref="the_layout_justified"><i className="fa fa-th" aria-hidden="true"></i></a>
@@ -102,7 +112,8 @@
         			<div className="section-buttons sr-button">
             			<a href='https://www.facebook.com/fotosniper.tw' target='_blank' title='Facebook'><i className="fa fa-facebook" aria-hidden="true"></i></a>
             			<a href='https://www.instagram.com/fotosniper.tw' target='_blank' title='Instagram'><i className="fa fa-instagram" aria-hidden="true"></i></a>
-            			<a href='https://www.flickr.com/' target='_blank' title='Flickr'><i className="fa fa-flickr" aria-hidden="true"></i></a>
+            			<a href='https://www.flickr.com/photos/mrwillystudio' target='_blank' title='Flickr'><i className="fa fa-flickr" aria-hidden="true"></i></a>
+            			<a href='https://line.me/ti/p/vRVXRRah0X' target='_blank' title='LINE'><i className="fa fa-commenting-o" aria-hidden="true"></i></a>
             			<a href={'https://www.facebook.com/sharer/sharer.php?u='+location.href} target='_blank' title='Share'><i className="fa fa-share-alt" aria-hidden="true"></i></a>
             		</div>
         		</div>
@@ -110,6 +121,35 @@
         }
     }
     
+    class SectionServiceController extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        componentWillMount(){
+        }
+        componentDidMount(){
+        }
+        render() {
+            return (
+        		<div className={this.props.sc} ref="the_controller" data-ref="the_controller">
+        			<div className="section-controller">
+                        <div className="section-border" data-animation-type="height"></div>
+                		<div className="section-buttons sr-button">
+                			<a data-func="previous-page">
+                			    <i className="fa fa-angle-double-up" aria-hidden="true"></i>
+                			    <div className="section-namespace" id="previous">PREVIOUS</div>
+                			</a>
+                			<a><hr/></a>
+                			<a data-func="next-page">
+                			    <div className="section-namespace" id="next">NEXT</div>
+                			    <i className="fa fa-angle-double-down" aria-hidden="true"></i>
+                			</a>
+                		</div>
+                	</div> 
+        		</div>
+            );
+        }
+    }
         ///////////////////////////////////////////
         ///////////* Section Component *///////////
         ///////////////////////////////////////////
@@ -127,9 +167,12 @@
                     <li>
                         <a className="page-scroll" data-target="#layout-about" href="about">ABOUT</a>
                     </li>
-        			<li>
+        			{/*<li>
         				<a className="page-scroll" data-target="#layout-evaluate" href="evaluate">EVALUATE</a>
-        			</li>
+        			</li>*/}
+                    <li>
+                        <a className="page-scroll" data-target="#layout-blog" href="blog">BLOG</a>
+                    </li>
                     <li>
                         <a className="page-scroll" data-target="#layout-portfolio" href="portfolio">PORTFOLIO</a>
                     </li>
@@ -137,8 +180,11 @@
                         <a className="page-scroll" data-target="#layout-service" href="service">SERVICE</a>
                     </li>
                     <li>
-                        <a className="page-scroll" data-target="#layout-contactus" href="contactus">CONTACT US</a>
+                        <a className="page-scroll" data-target="#layout-vendor" href="vendor">vendor</a>
                     </li>
+                    {/*<li>
+                        <a className="page-scroll" data-target="#layout-contactus" href="contactus">CONTACT US</a>
+                    </li>*/}
                 </ul>    
             );
         }
@@ -158,18 +204,91 @@
                     <div className="section-about">
                         <div className="section-block">
                             <h1 data-animation-css="fadeInLeftDown" data-animation-delay="500">關於</h1>
-                            <h2 data-animation-css="fadeInRightUp" data-animation-delay="500">起程</h2>
+                            <h2 data-animation-css="fadeInRightUp" data-animation-delay="500">我們</h2>
                             <p>
-                                我們年僅二十好幾，手捧相機多年，心繫所拍如畫，能藉由光影勾勒攝影趣味。<br/>
-                                直至今日，不斷問自己如何提升美感與品質，反覆檢視、找尋真理，不斷地轉動腦子和相機，洋洋灑灑扣下快門，期望哪天能滿足這世代對影像美學的需求。
+                                fotosniper 來自一群享受生活的觀察者，在風起雲湧時，光影編織，記載關於你們。
                                 <br/><br/>
                                 影像／狙擊手<br/>
-                                一詞源於狙擊手必須保持「眾人皆醉我獨醒」般的心境，期許我們能臨危不亂保有自我的審美之眼，無聲無息地等待每幅動人的畫面出現，精準拍下最美最感動的一刻。
+                                <b>▪ 蔡政霖</b><br/>
+                                <a href="https://www.facebook.com/mr.willy.studio" target="_blank"><i className="fa fa-facebook fa-fw"></i> mr.willy.studio</a>／
+                                <a href="https://www.instagram.com/mr.willy.studio" target="_blank"><i className="fa fa-instagram fa-fw"></i> mr.willy.studio</a><br/>
+                                <b>攝影 ▪ 張庭瑋</b><br/>
+                                <a href="https://www.facebook.com/chang40817" target="_blank"><i className="fa fa-facebook fa-fw"></i> chang40817</a>／
+                                <a href="https://www.instagram.com/chang40817" target="_blank"><i className="fa fa-instagram fa-fw"></i> chang40817</a><br/>
+                                <b>攝影 ▪ 林淑賢</b><br/>
+                                <a href="https://www.facebook.com/shusian.lin" target="_blank"><i className="fa fa-facebook fa-fw"></i> shusian.lin</a>／
+                                <a href="https://www.instagram.com/sian_0828" target="_blank"><i className="fa fa-instagram fa-fw"></i> sian_0828</a><br/>
                             </p>
                         </div>
                         <div className="section-block">
                             
                         </div>
+                    </div>
+                </div>
+            );
+        }
+    }
+    
+    class SectionBlogComponent extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {data: null};
+        }
+        componentWillMount(){
+        }
+        componentDidMount(){
+            var self = this,
+                $this = $(React.findDOMNode(this.refs.the_container));
+                
+           fetch('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@mr.willy.studio').then(function(response){
+                return response.json();
+            }).then(function(data) {
+                var res = data.items,
+                    posts = res.filter(function(item){return item.guid.length > 0});
+                $.each(posts, function(k, p){
+                    posts[k]['description'] = shortenText(toText(p.description), 0, 117)+" …";
+                })
+			    self.setState({data: posts});
+            });
+            function toText(node) {
+                var tag = document.createElement('div')
+                tag.innerHTML = node
+                node = tag.innerText
+                return node
+             }
+            function shortenText(text, point, maxLength) {
+                return text.length > maxLength ? text.slice(point, maxLength) : text
+            }
+        }
+        render() {
+            return (
+                <div className="xs-content">
+                    <div className="section-blog" ref="the_blog">
+                        {this.state.data ? this.state.data.map(function(d, i){
+                            return (
+                                <div className="row" data-animation-type="opacity">
+                                    <div className="section-story col-xs-12 col-sm-4">
+                                        <a data-blog={d.guid} href={d.link} target="_blank">
+                                            <img src={d.thumbnail}/>
+                                        </a>
+                                    </div>
+                                    <div className="section-story col-xs-12 col-sm-8">
+                                        <div className="section-block">
+                                            <a data-blog={d.guid} href={d.link} target="_blank">
+                                                <h2>{d.title}</h2>
+                                            </a>
+                                            <span>{d.description}</span>
+                                            <p>▸ {d.pubDate.substring(0,10)}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }) : (
+                            <div className="section-loader">
+                                <i className="fa fa-circle-o-notch fa-spin fa-fx fa-fw"></i>
+                                <span>LOADING...</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             );
@@ -319,31 +438,66 @@
     class SectionPortfolioComponent extends React.Component {
         constructor(props){
             super(props);
-            this.state = {data: null};
+            this.state = {data: null, content: null};
+		    this.handlePhotoInfo = this.handlePhotoInfo.bind(this);
         }
         componentWillMount(){
             
         }
         componentDidMount(){
-            var $this = $(React.findDOMNode(this.refs.the_protfolio));
-            $.get('./plugin/phpflickr-master/getPhotosets.php').done(function(data) {
-                this.setState({data: data ? JSON.parse(data) : null});
-                setTimeout(function(){$('[data-animation-one]:nth-child(odd)', $this).removeAttr('style').css('opacity', '1');}, 100);
-                setTimeout(function(){$('[data-animation-one]:nth-child(even)', $this).removeAttr('style').css('opacity', '1');}, 600);
-            }.bind(this));
+            var self = this,
+                $this = $(React.findDOMNode(this.refs.the_protfolio)),
+                w = false;
+            do{
+                $.get('./plugin/phpflickr-master/getPhotosets.php').done(function(data) {
+                    try{
+                        this.setState({data: data ? JSON.parse(data) : null});
+        		        self.handlePhotoInfo();
+                    }catch(e){
+                        w = true;
+                        console.log(e);
+                    }
+                    setTimeout(function(){$('[data-animation-one]:nth-child(odd)', $this).removeAttr('style').css('opacity', '1');}, 100);
+                    setTimeout(function(){$('[data-animation-one]:nth-child(even)', $this).removeAttr('style').css('opacity', '1');}, 600);
+                }.bind(this));
+            }while(w);
+        }
+        handlePhotoInfo(){
+            if(this.state.data){
+                var arr = [];
+                $.each(this.state.data, function(k, d){
+                    var c = d['description']['_content'].replace(/(\r\n|\n)/gm, '/r/n').split('/r/n'),
+                        res = {
+                            'ID': d['id'],
+                            'URL': d['url'],
+                            'TITLE': d['title']['_content'],
+                            'CONTENT': []
+                        };
+                    $.each(c, function(i, v){
+                        if(v.split(":").length>1)
+                            res[v.split(":")[0]] = v.split(":")[1];
+                        else{
+                            res['CONTENT'].push(v.length>0 ? <p>{v}</p> : <br/>);
+                        }
+                    });
+                    arr[k] = res;
+                });
+                this.setState({content: arr});
+            }
         }
         render() {
             return (
                 <div className="section-portfolio row" ref="the_protfolio">
-                    {this.state.data ? this.state.data.map(function(d, i){
+                    {this.state.content ? this.state.content.map(function(d, i){
                         return (
-                            <div className="section-photosets col-xs-12 col-sm-4" data-animation-one="true">
-                                <img src={d.url}/>
-                                <a className="section-wrapper" data-photoset={d.id}></a>
+                            <div className="section-photosets col-xs-12 col-sm-4" data-animation-one="true" data-category={d.CATEGORY} data-date={d.DATE}>
+                                <a className="section-wrapper" data-photoset={d.ID}>
+                                    <img src={d.URL}/>
+                                </a>
                                 <div className="section-block">
-                                    <h2>{d['title']['_content'].split(":")[0]}</h2>
-                                    { /* Location */ }
-                                    <span>{d['description']['_content'].split(/(\r\n|\n)/gm).length>2 && d['description']['_content'].split(/(\r\n|\n)/gm)[2].split(":")[1]}</span>
+                                    <a data-photoset={d.ID}><h2>{d.TITLE}</h2></a>
+                                    <span>{d.LOCATION}</span>
+                                    <span><time>{d.DATE}</time></span>
                                 </div>
                             </div>
                         );
@@ -367,19 +521,27 @@
         }
         componentDidMount(){
             var self = this,
-                $this = $(React.findDOMNode(this.refs.the_photoset));
+		        $this = $(React.findDOMNode(this.refs.the_photoset)),
+                $panel = $(React.findDOMNode(this.refs.the_container)).parentsUntil(".container").parent();
+            
+            // TAP A PHOTOSET //
             $("body").on("tap", "a[data-photoset]", function(e){
         		var id = $(this).attr('data-photoset'),
         		    a = $('.page-layout.active'),
 			        t = $("#layout-photoset");
 			    if(a.css('right')!='0px') return false;
-			    self.setState({data: null, content: null});
 			    a.removeClass('active');
+			    
+			    // INITIALIZE //
+        	 	// $panel.trigger('uninitPhotoset');
+        	    
+			    // PLAY ANIMATION //
         		t.css('transition', 'all 0s ease').css('right', '-100%').addClass('active');
 			    setTimeout(function(){t.css('transition', 'all 1s ease').css('right', '0');}, 0);
 			    setTimeout(function(){a.removeAttr('style').css('transition', 'all 0s ease');}, 950);
 			    PageAnimation(t);
-			    self.props.xscroll.scrollTop(0);
+                
+                // HANDLE PHOTOSET DATA //
         		$.get('./plugin/phpflickr-master/getPhoto.php', {pid: id}).done(function(data) {
         		    $('[data-animation-type="opacity"]', $this).css('transition', 'all 0s ease').css('opacity', '0');
                     self.setState({data: data ? JSON.parse(data) : null});
@@ -388,10 +550,19 @@
                     self.handlePhotoLoad();
                 }.bind(this));
         	});
+        	
+        	$panel.on('uninitPhotoset', function(){
+                setTimeout(function(){
+            	    self.setState({data: null, content: null});
+    			    if(self.props.xscroll) self.props.xscroll.scrollTop(0);
+                    if(self.props.mcscroll) self.props.mcscroll.trigger('setinit');
+                }, 1000);
+        	});
         }
         handlePhotoInfo(){
-            if(this.state.data){
-                var c = this.state.data['info']['description']['_content'].replace(/(\r\n|\n)/gm, '/r/n').split('/r/n'),
+            var self = this;
+            if(self.state.data){
+                var c = self.state.data['info']['description']['_content'].replace(/(\r\n|\n)/gm, '/r/n').split('/r/n'),
                     res = {'CONTENT': []};
                 $.each(c, function(i, v){
                     if(v.split(":").length>1)
@@ -400,30 +571,31 @@
                         res['CONTENT'].push(v.length>0 ? <p>{v}</p> : <br/>);
                     }
                 });
-                this.setState({content: res});
+                self.setState({content: res});
             }
         }
         handlePhotoLoad(){
             var self = this,
                 $photos = $(React.findDOMNode(this.refs.the_photos)),
-                $this = $(React.findDOMNode(this.refs.the_photoset));
+                $this = $(React.findDOMNode(this.refs.the_photoset)),
+                total = $('img', $this).length;
             $('img', $this).one("load", function(){
                 var $img = $(this);
+                // RESIZE LAYOUT //
                 if($photos.attr('data-masonry')) $photos.masonry('layout');
-                self.props.xscroll.resetSize();
-                $img.parent().removeClass('loading-lazy');
-            }).each(function(){
-                if(this.complete) loaded.call(this);
+                if(self.props.xscroll) self.props.xscroll.resetSize();
+                if($img.attr('src') == $img.attr('data-src'))
+                    $img.removeAttr('data-src').parent().removeClass('loading-lazy');
             });
             $('img.lazy[data-src]', $this).each(function(){
-                if($(this)[0].y < $(window).height()){
-                    $(this).attr('src', $(this).attr('data-src')).removeAttr('data-src');
+                if($(this)[0].y < $(window).height()*3){
+                    $(this).attr('src', $(this).attr('data-src'));
                 }
             });
         }
         render() {
             return (
-                <div className="xs-content col-xs-12 col-sm-9">
+                <div className="xs-content col-xs-12 col-sm-9" ref="the_container">
                     {this.state.data!=null ? (
                         <div className="section-photoset" ref="the_photoset" data-animation-type="opacity">
                             {/* 相冊音樂 MUSIC */}
@@ -436,19 +608,19 @@
                                 {/* 相冊類別 CATEGORY */}
                                 {this.state.content && this.state.content['CATEGORY'] && (
                                     <h2>
-                                       CATEGORY:<small>{this.state.content['CATEGORY']}</small>
+                                       ▸ CATEGORY:<small>{this.state.content['CATEGORY']}</small>
                                     </h2>
                                 )}
                                 {/* 相冊地區 LOCATION */}
                                 {this.state.content && this.state.content['LOCATION'] && (
                                     <h2>
-                                        LOCATION:<small>{this.state.content['LOCATION']}</small>
+                                        ▸ LOCATION:<small>{this.state.content['LOCATION']}</small>
                                     </h2>
                                 )}
                                 {/* 相冊攝影 PHOTOGRAPHER */}
                                 {this.state.content && this.state.content['PHOTOGRAPHER'] && (
                                     <h2>
-                                        PHOTOGRAPHER:<small>{this.state.content['PHOTOGRAPHER']}</small>
+                                        ▸ PHOTOGRAPHER:<small>{this.state.content['PHOTOGRAPHER']}</small>
                                     </h2>
                                 )}
                                 {/* 相冊內文 CONTENT */}
@@ -462,7 +634,7 @@
                                 {this.state.data && this.state.data['photos'].map(function(d, i){
                                     return (
                                         <a className="photoset-item loading-lazy">
-                                            <img className="lazy" data-src={d.url}/>
+                                            <img className="lazy" src={d.thumb} data-src={d.url}/>
                                         </a>
                                     );
                                 })}
@@ -489,37 +661,129 @@
         componentDidMount(){
             var self = this,
                 $this = $(React.findDOMNode(this.refs.the_container)),
-                $ctl = $this.parentsUntil(".container").parent().find('[data-ref="the_controller"]'),
+                $panel = $this.parentsUntil(".container").parent(),
                 $lobg = $this.parentsUntil(".page-layout").parent().find('.background ul.background-block');
-            $ctl.on('tap', '[data-func="previous-page"]', function(e){
+            $panel.on('tap', '[data-func="previous-page"]', function(e){
                 var l = SectionServiceContent.length,
                     i = self.state.data-1<=-1 ? l-1 : self.state.data-1;
                 self.setState({data: i, index: 0});
-                $lobg.find('li').css({'background-image': "url('"+SectionServiceContentPhoto[i]+"')"});
+                handleContentPhoto(i, 0);
             }).on('tap', '[data-func="previous-item"]', function(e){
                 var l = SectionServiceContent[self.state.data].length,
                     i = self.state.index-1<=-1 ? l-1 : self.state.index-1;
                 self.setState({index: i});
+                handleContentPhoto(self.state.data, i);
             }).on('tap', '[data-func="next-item"]', function(e){
                 var l = SectionServiceContent[self.state.data].length,
                     i = self.state.index+1>=l ? 0 : self.state.index+1;
                 self.setState({index: i});
+                handleContentPhoto(self.state.data, i);
             }).on('tap', '[data-func="next-page"]', function(e){
                 var l = SectionServiceContent.length,
                     i = self.state.data+1>=l ? 0 : self.state.data+1;
                 self.setState({data: i, index: 0});
-                $lobg.find('li').css({'background-image': "url('"+SectionServiceContentPhoto[i]+"')"});
+                handleContentPhoto(i, 0);
+            });
+            $(document).keydown(function(e){
+                var k = e.which;
+                if(k==37){ // left
+                    var l = SectionServiceContent[self.state.data].length,
+                        i = self.state.index-1<=-1 ? l-1 : self.state.index-1;
+                    self.setState({index: i});
+                    handleContentPhoto(self.state.data, i);
+                }
+                if(k==39) {// right
+                    var l = SectionServiceContent[self.state.data].length,
+                        i = self.state.index+1>=l ? 0 : self.state.index+1;
+                    self.setState({index: i});
+                    handleContentPhoto(self.state.data, i);
+                }
             });
             $this.on('tap', '[data-ref="the_refs"] li', function(e){
-               var i = $.inArray($(this)[0], $(this).parent().find('li')); 
-               self.setState({index: i});
+                var i = $.inArray($(this)[0], $(this).parent().find('li')); 
+                self.setState({index: i});
+                handleContentPhoto(self.state.data, i); 
             });
+            function handleContentPhoto(i, j){
+                var li = $lobg.find('li.active').removeClass('active'),
+                    lis = $lobg.find('li');
+                $(lis[i*3+j]).addClass('active');
+            }
         }
         render() {
             return (
                 <div className="xs-content" ref="the_container">
                     <div className="section-service">
                         {SectionServiceContent[this.state.data][this.state.index]}
+                    </div>
+                </div>
+            );
+        }
+    }
+    
+    class SectionVendorComponent extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                title: [
+                    '錄影,Videographer', '造型,Makeup Artist', '禮服,Dresses', '西服,Suit', '主持,Host', '顧問,', '花藝,', '佈置,', '禮物,'
+                ], 
+                data: [
+                    [ /* 錄影 */
+                        {'name': 'BAMBOO 扁布婚禮錄影', 'url': 'https://vimeo.com/bambooview'},
+                        {'name': 'DOYZ 豆爸影像工作室', 'url': 'https://www.facebook.com/DoyzOleon/'},
+                        {'name': '貳扒影像', 'url': 'https://www.facebook.com/28hsu/'},
+                        {'name': '嘉恩 "+N" Studio', 'url': 'https://www.facebook.com/plusN.studio/'}
+                    ],[ /* 造型 */
+                        {'name': '淳淳 / 周品汝造型經理團隊', 'url': 'https://www.facebook.com/周品汝造型經理團隊-148793722320875/'},
+                        /*{'name': '梁瑋真 / Nistyle Makeup Studio', 'url': 'https://www.facebook.com/liangweichen0524/'},*/
+                        {'name': '創藝造型 - Sayoko 陳螢貞', 'url': 'https://www.facebook.com/sayokomakeup/'}
+                    ],[ /* 禮服 */
+                        {'name': 'Louise Wedding', 'url': 'https://www.facebook.com/Louise.Wedding/'},
+                        {'name': '蕾絲娃娃法式手工婚紗', 'url': 'https://www.facebook.com/laceanddollykh/'},
+                        {'name': '品攝婚紗工坊', 'url': 'https://www.facebook.com/pinphotowedding/'},
+                        {'name': '富松梅 手作藝廊', 'url': 'https://www.facebook.com/FSMhand/'}
+                    ],[ /* 西服 */
+                        {'name': '舒褆西服', 'url': 'https://www.facebook.com/orderSuitMulti/'},
+                        {'name': '老爺紳士禮服', 'url': 'https://zh-tw.facebook.com/theoldfashionhousekaohsiung/'}
+                    ],[ /* 主持 */
+                        {'name': '賽門 SIMON / 樂玩創意', 'url': 'https://www.facebook.com/yoursimon.com.tw/'}
+                    ],[ /* 顧問 */
+                        {'name': '', 'url': ''}
+                    ],[ /* 花藝 */
+                        {'name': '', 'url': ''}
+                    ],[ /* 佈置 */
+                        {'name': '', 'url': ''}
+                    ],[ /* 禮物 */
+                        {'name': '', 'url': ''}
+                    ]
+                ]
+            };
+        }
+        componentWillMount(){
+        }
+        componentDidMount(){
+            var self = this,
+                $this = $(React.findDOMNode(this.refs.the_container));
+        }
+        render() {
+            var self = this;
+            return (
+                <div className="xs-content" ref="the_container">
+                    <div className="section-vendor">
+                        <div className="section-block row">
+                            {this.state.data && this.state.data.map(function(d, i){
+                                if(d[0].name != '')
+                                    return (
+                                        <ul className='section-area col-xs-12'>
+                                            <h3>{self.state.title[i].substring(0,2)}<p>{self.state.title[i].substr(3)}</p></h3>
+                                            {d && d.map(function(v ,k){
+                                                return (v.name != '' && v.url != '') ? (<li><a href={v.url} target="_blank">▪ {v.name}</a></li>) : false;
+                                            })}
+                                        </ul>
+                                    );
+            			    })}
+                        </div>
                     </div>
                 </div>
             );
@@ -574,7 +838,7 @@
             super(props);
         }
         componentDidMount(){
-            if(this.props.background && $.isArray(this.props.background) && this.props.background.length > 1){
+            if(this.props.background && $.isArray(this.props.background) && this.props.background.length > 1 && this.props.slideshow){
                 var self = this,
                     $this = $(React.findDOMNode(this.refs.the_background));
                 setTimeout(dynamicTimer, 5000, $this);
@@ -595,10 +859,11 @@
             return (
                 <div>
                     {this.props.navbar && (<nav id={"navbar-"+this.props.name} className="navbar navbar-default">{this.props.navbar}</nav>)}
-                	{this.props.section && (<section id={"section-"+this.props.name} className="section">{this.props.section}</section>)}
+                	{this.props.mobile && (<nav id={"mobile-"+this.props.name} className="mobile">{this.props.mobile}</nav>)}
+                	{this.props.section && (<section id={"section-"+this.props.name} className="section" data-mobile={this.props.mobile ? true : false} data-navbar={this.props.navbar ? true : false} data-footer={this.props.footer ? true : false}>{this.props.section}</section>)}
                     {this.props.footer && (<footer id={"footer-"+this.props.name} className="footer">{this.props.footer}</footer>)}
                     {this.props.background && $.isArray(this.props.background) ? 
-                        (<div id={"background-"+this.props.name} className="background" ref="the_background">
+                        (<div id={"background-"+this.props.name} className="background" ref="the_background" data-slideshow={this.props.slideshow ? true : false}>
                     		<ul className="background-block" >
                     			{this.props.background.map(function(d, i){
                                     return (<li style={{'background-image': "url('"+d+"')"}} className={i==0?'active':''}></li>);
@@ -643,13 +908,13 @@
                         <a className="navbar-brand page-scroll" data-target="#layout-home" data-href="index"><div className="navbar-logo"/></a>
                     </div>
                     {Boolean(this.props.collapse) && (
-                        <div className="collapse navbar-collapse in" id={"collapse-"+timestamp}>
+                        <div className={"collapse navbar-collapse " + ($define.u.Mobile ? "in" : "in")} id={"collapse-"+timestamp}>
                             <ul className="nav navbar-nav">
                                 <li>
                                     <a className="page-scroll sr-icon" data-target="#layout-about" href="about">關於我們<p>ABOUT</p></a>
                                 </li>
             					<li>
-            						<a className="page-scroll sr-icon" data-target="#layout-evaluate" href="evaluate">線上估價<p>EVALUATE</p></a>
+            						<a className="page-scroll sr-icon" data-target="#layout-blog" href="blog">雜誌專欄<p>BLOG</p></a>
             					</li>
                                 <li>
                                     <a className="page-scroll sr-icon" data-target="#layout-portfolio" href="portfolio">作品相冊<p>PORTFOLIO</p></a>
@@ -658,7 +923,7 @@
                                     <a className="page-scroll sr-icon" data-target="#layout-service" href="service">服務方案<p>SERVICE</p></a>
                                 </li>
                                 <li>
-                                    <a className="page-scroll sr-icon" data-target="#layout-contactus" href="contactus">與我聯繫<p>CONTACT US</p></a>
+                                    <a className="page-scroll sr-icon" data-target="#layout-vendor" href="vendor">婚禮廠商<p>VENDOR</p></a>
                                 </li>
                             </ul>
                         </div>
@@ -677,10 +942,41 @@
         }
     }
     
+    class MobileModel extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        componentWillMount(){
+        }
+        componentDidMount(){
+            var $this = $(React.findDOMNode(this.refs.the_container)),
+                $panel = $this.parent().siblings().find(".container");
+            
+            // UNINITIALIZE //
+            $this.on("tap", "a[data-target]", function(e){
+                $panel.trigger('uninitPhotoset');
+            })
+            
+            initAnimation($this);
+        }
+        render() {
+            var timestamp = $.now();
+            return (
+        	    <div data-timestamp={timestamp} className="container" ref="the_container">
+                    <div className="mobile-container" data-animation-css="fadeIn">
+                        <a className="sr-button" data-photoset="" title="回上頁 PREVIOUS PAGE"><i className="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                        <a className="sr-button" data-target="#layout-portfolio" data-href="portfolio" title="回作品相冊 PORTFOLIO">PORTFOLIO</a>
+                        <a className="sr-button" data-photoset="" title="往下頁 NEXT PAGE"><i className="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            );
+        }
+    }
+    
     class SectionModel extends React.Component {
         constructor(props){
             super(props);
-            this.state = {xscroll: null};
+            this.state = {xscroll: null, mcscroll: null};
         }
         componentWillMount(){
             
@@ -689,66 +985,141 @@
             var $this = $(React.findDOMNode(this.refs.the_container)),
                 p = $this.parentsUntil(".page-layout").parent();
             initAnimation($this);
-            if(Boolean(this.props.xscroll)){
+            
+            // mCustomScrollbar //
+            // http://manos.malihu.gr/jquery-custom-content-scroller //
+            if(Boolean(this.props.scroll)){
+                $this.find('.xs-container').on('setinit',function(){
+                    $(this).find('.mCSB_container[id$="container"]').css('transition', 'all 0s ease').css('top', 0).css('transition', '');
+                    
+                }).on('reload',function(){
+                    
+                }).mCustomScrollbar({
+                    axis:"y",
+                    callbacks:{
+                         onUpdate:function(){
+                             lazyloaderTrigger();
+                        }
+                    }
+                });
+                
+                $this.on('swipe',function(){
+                    setTimeout(function(){lazyloaderTrigger();}, 500);
+                });
+                
+                var x = $this.find('.mCSB_container[id$="container"]');
+                
+                this.setState({mcscroll: $this.find('.xs-container')});
+                
+                function lazyloaderTrigger(){
+                    $('img.lazy[data-src]', $this).each(function(){
+                        if($(this)[0].y < $(window).height()*2-parseInt(x.css('top'))){
+                            $(this).attr('src', $(this).attr('data-src')).removeAttr('data-src');
+                            $(this).parent().removeClass('loading-lazy');
+                            $(this).on('load', function(){
+                                $(this).addClass('loaded');
+                            }).on('error', function(){
+                                $(this).addClass('error').parent().hide();
+                            })
+                        }
+                    });
+                }
+            }
+            
+            // XSCROLL & JQUERY MOUSEWHEEL //
+            if(false){
+                // XSCROLL 初始化 //
                 var x = new XScroll({
-                        renderTo: $this[0],
-                        scrollbarX:false,
-                        lockX:true,
-                        lockY:false,
-                        boundryCheck: true,
-                        bounce: false
+                    renderTo: $this[0],
+                    scrollbarX:false,
+                    lockX:true,
+                    lockY:false,
+                    boundryCheck: true,
+                    bounce: false
                 });
                 x.render();
+                
                 this.setState({xscroll: x});
+                
+                // 滑鼠滾輪 SCROLL EVENT //
+                var dt = 0;
+                scrollLoop();
                 $this.mousewheel(function(e, d){
-                    if(d>0 && x.y >=0) return;
-                    x.scrollTopBy(x.height*-1*d, 250, "ease-out");
-                    lazyloaderTrigger();
+                    if(d>0 && x.y >= 0) return;
+                    if(d<0 && x.y <= x.height-x.containerHeight) return;
+                    if(dt<0 && d>0)
+                        dt=d;
+                    else if(dt>0 && d<0)
+                        dt=d;
+                    else
+                        dt+=d;
                 });
+                
+                // 輔助疊加減速 //
+                function scrollLoop(){
+                    var r = Math.abs(dt)>1 ? 250 : 50;
+                    if(dt!=0){
+                        var h = x.height-x.containerHeight;
+                        if(dt>0 && x.y >= 0) dt=0;
+                        if(dt<0 && x.y <= h) dt=0;
+                        var m = x.height*-1*dt/8;
+                        if(dt>0 && x.y - m > 0) m = x.y;
+                        if(dt<0 && x.y - m < h) m = x.y-h; 
+                        x.scrollTopBy(m, r, "linear");
+                        // bezier // http://cubic-bezier.com
+                        lazyloaderTrigger();
+                        dt=0;
+                    }
+                    return setTimeout(scrollLoop, r);
+                }
+                
+                // 鍵盤按鈕 SCROLL EVENT
                 $(document).keydown(function(e){
                     var k = e.which,
                         b = x.containerHeight-x.height;
                     if(p.hasClass('active')){
-                        if(k==33 && x.y <0){ // page up
-                            x.scrollTopBy(x.height*-1, 250, "ease-out");
+                        if((k==33 || k==38) && x.y < 0){ // page up
+                            x.scrollTopBy(x.height/2*-1, 250, "ease");
                             lazyloaderTrigger();
                         }
-                        if(k==34){ // page down
-                            x.scrollTopBy(x.height*1, 250, "ease-out");
+                        if((k==34 || k==40) && x.y > x.height-x.containerHeight){ // page down
+                            x.scrollTopBy(x.height/2*1, 250, "ease");
                             lazyloaderTrigger();
                         }
                         if(k==35){ // end
-                            x.scrollTop(b, 250, "ease-out");
+                            x.scrollTop(b, 250, "ease");
                             lazyloaderTrigger();
                         }
                         if(k==36) {// home
-                            x.scrollTop(0, 250, "ease-out");
+                            x.scrollTop(0, 250, "ease");
                             lazyloaderTrigger();
                         }
                     }
                 });
+                
+                // 改變視窗大小
                 $(window).resize(function(){
                     x.resetSize();
                 });
-                $($this).on('swipe',function(){
+                $this.on('swipe',function(){
                     lazyloaderTrigger();
                     setTimeout(function(){lazyloaderTrigger();}, 500);
-                });
-                $($this).on('resize',function(){
+                }).on('resize',function(){
                     x.resetSize();
                     x.boundryCheckY();
                 });
                 
                 function lazyloaderTrigger(){
                     $('img.lazy[data-src]', $this).each(function(){
-                        if($(this)[0].y < $(window).height()-x.y){
-                            $(this).attr('src', $(this).attr('data-src')).removeAttr('data-src');
+                        if($(this)[0].y < $(window).height()*2-x.y){
+                            $(this).attr('src', $(this).attr('data-src')).parent().removeClass('loading-lazy');
+                            $(this).on('load', function(){
+                                $(this).removeAttr('data-src');
+                                //x.resetSize();
+                            })
                         }
                     });
-                    setTimeout(function(){x.boundryCheckY();}, 25);
-                    setTimeout(function(){x.boundryCheckY();}, 100);
-                    setTimeout(function(){x.boundryCheckY();}, 175);
-                    setTimeout(function(){x.boundryCheckY();}, 250);
+                    setTimeout(function(){ x.boundryCheckY(); }, 250);
                 }
             }
         }
@@ -757,7 +1128,7 @@
                 <div className="container" ref="the_container">
                     {this.props.sleft && React.createElement(this.props.sleft, {sc: "section-left"})}
         			<div className="section-middle xs-container" data-animation-css="fadeInUp">
-        			    {this.props.content && React.createElement(this.props.content, {xscroll: this.state.xscroll})}
+        			    {this.props.content && React.createElement(this.props.content, {xscroll: this.state.xscroll, mcscroll: this.state.mcscroll})}
         			</div>
         			{this.props.sright && React.createElement(this.props.sright, {sc: "section-right"})}
         		</div>
@@ -778,9 +1149,9 @@
                 <div className="container" ref="the_container">
         		    <div className="footer-border" data-animation-type="width"></div>
         			<ul className="footer-block">
-        				<li>fotosniper photography<br/>Copyright © All rights reserved.</li>
-        				<li >影像狙擊手<br/>高雄婚攝．婚攝推薦．自助婚紗．婚禮紀錄</li>
-        				<li>
+        				<li>Copyright © fotosniper. All rights reserved.</li>
+        				<li >高雄婚攝．婚攝推薦．自助婚紗．婚禮紀錄</li>
+        				<li hidden="true">
         				    <i className="fa fa-share fa-fw" aria-hidden="true"></i> <u>2017 KUAS HOMECOMING</u><br/>
         				    <i className="fa fa-youtube-play fa-fw" aria-hidden="true"></i> Anna Leone - My Soul I (Official Video)<br/>
         				</li>
@@ -807,7 +1178,8 @@
                 $this = $(React.findDOMNode(this.refs.the_container)),
                 $btn = $(React.findDOMNode(this.refs.the_button), $this),
                 $vol = $(React.findDOMNode(this.refs.the_volume), $this),
-                $bar = $(React.findDOMNode(this.refs.the_currentBar), $this);
+                $bar = $(React.findDOMNode(this.refs.the_currentBar), $this),
+                $panel = $this.parentsUntil(".container").parent();
             var i = setInterval(function(){
                 if($define.api.Youtube){
                     self.setState({player:
@@ -816,16 +1188,21 @@
                             width: '0',
                             videoId: self.props.videoId,
                             events: {
-                            'onReady': onPlayerReady,
-                            'onStateChange': onPlayerStateChange
+                                'onReady': onPlayerReady,
+                                'onStateChange': onPlayerStateChange
                             }
                         })
                     });
                     clearInterval(i);
                 }
             }, 100);
+            $panel.on('stopPlayer', function(){
+                self.handleStopVideo();
+                $panel.off("stopPlayer");
+            })
             function onPlayerReady(event){
-                event.target.setVolume(100);
+                event.target.setVolume(50); // 預設音量50%
+                if(!$define.u.Mobile) self.handlePlayVideo(); // 預設電腦版自動播放
                 self.state.player && self.setState({title: self.state.player.getVideoData().title});
                 $this.on("tap", '[data-type="button"]', function(e){
                     if(self.state.player && self.state.player.getPlayerState){
@@ -837,14 +1214,14 @@
                     }
                 }).on("tap", '[data-type="volume"]', function(e){
                     if(self.state.player && self.state.player.setVolume){
-                        if(self.state.player.getVolume() == 100){
+                        if(self.state.player.getVolume() == 75){
                             self.state.player.setVolume(50);
                             $vol.removeAttr('class').addClass('fa fa-volume-down fa-fw');
                         }else if(self.state.player.getVolume() == 50){
                             self.state.player.setVolume(0);
                             $vol.removeAttr('class').addClass('fa fa-volume-off fa-fw');
                         }else{
-                            self.state.player.setVolume(100);
+                            self.state.player.setVolume(75);
                             $vol.removeAttr('class').addClass('fa fa-volume-up fa-fw');
                         }
                     }
@@ -902,7 +1279,7 @@
             				    <i className="fa fa-youtube-play fa-fw" aria-hidden="true"></i>
             				    <span>{this.state.player &&  this.state.title}</span>
         				    </a>
-        				    <i className="fa fa-volume-up fa-fw" data-type="volume" aria-hidden="true" ref="the_volume"></i>
+        				    <i className="fa fa-volume-down fa-fw" data-type="volume" aria-hidden="true" ref="the_volume"></i>
         				</div>
         			</div>
     				<div ref="the_currentBar"></div>
@@ -917,16 +1294,25 @@
             navbar: <NavbarModel collapse="true" />,
             section: <SectionModel sleft={SectionShareController} content={SectionIndexComponent} />,
             footer: <FooterModel />,
-            background: ["images/background/FSBG004.jpg", "images/background/FSBG002.jpg", "images/background/FSBG005.jpg"]
+            background: ["images/background/FSBG004.jpg", "images/background/FSBG002.jpg", "images/background/FSBG005.jpg"],
+            slideshow: true
         }), $("#layout-home").addClass('active').last()[0]);
         
         React.render(React.createElement(LayoutModel, {
             name: 'about',
             navbar: <NavbarModel collapse="true" />,
-            section: <SectionModel sleft={SectionShareController} content={SectionAboutComponent} xscroll="true" />,
+            section: <SectionModel sleft={SectionShareController} content={SectionAboutComponent} scroll="true" />,
             footer: <FooterModel />,
             background: ["images/background/FSBG003.jpg"]
         }), $("#layout-about").last()[0]);
+        
+        React.render(React.createElement(LayoutModel, {
+            name: 'blog',
+            navbar: <NavbarModel collapse="true" />,
+            section: <SectionModel sleft={SectionShareController} content={SectionBlogComponent} scroll="true" />,
+            footer: <FooterModel />,
+            background: 'white'
+        }), $("#layout-blog").last()[0]);
         
         React.render(React.createElement(LayoutModel, {
             name: 'evaluate',
@@ -939,29 +1325,37 @@
         React.render(React.createElement(LayoutModel, {
             name: 'portfolio',
             navbar: <NavbarModel collapse="true" />,
-            section: <SectionModel sleft={SectionShareController} content={SectionPortfolioComponent} sright={SectionPortfolioController} />,
-            footer: <FooterModel />,
+            section: <SectionModel sleft={SectionShareController} content={SectionPortfolioComponent} scroll="true" />,
             background: 'white'
         }), $("#layout-portfolio").last()[0]);
         
         React.render(React.createElement(LayoutModel, {
             name: 'photoset',
-            section: <SectionModel sleft={SectionPhotosetController} content={SectionPhotosetComponent} xscroll="true" />,
-            background: '#222'
+            section: <SectionModel sleft={SectionPhotosetController} content={SectionPhotosetComponent} scroll="true" />,
+            background: '#222',
+            mobile: <MobileModel />
         }), $("#layout-photoset").last()[0]);
         
         React.render(React.createElement(LayoutModel, {
             name: 'service',
             navbar: <NavbarModel collapse="true" />,
-            section: <SectionModel sleft={SectionPortfolioController} content={SectionServiceComponent} sright={SectionShareController} />,
-            footer: <FooterModel />,
-            background: ["images/background/FSBG007.jpg"]
+            section: <SectionModel sleft={SectionServiceController} content={SectionServiceComponent} scroll="true" />,
+            footer: false,
+            background: ["images/background/FSBG007.jpg", "images/background/FSBG008.jpg", "images/background/FSBG009.jpg", "images/background/FSBG010.jpg", "images/background/FSBG011.jpg", "images/background/FSBG012.jpg"]
         }), $("#layout-service").last()[0]);
+        
+        React.render(React.createElement(LayoutModel, {
+            name: 'vendor',
+            navbar: <NavbarModel collapse="true" />,
+            section: <SectionModel sleft={null} content={SectionVendorComponent} sright={null} scroll="true" />,
+            footer: <FooterModel />,
+            background: ["images/background/FSBG006.jpg"]
+        }), $("#layout-vendor").last()[0]);
         
         React.render(React.createElement(LayoutModel, {
             name: 'contactus',
             navbar: <NavbarModel collapse="true" />,
-            section: <SectionModel sleft={null} content={SectionContactusComponent} sright={null} xscroll="true" />,
+            section: <SectionModel sleft={null} content={SectionContactusComponent} sright={null} scroll="true" />,
             footer: <FooterModel />,
             background: ["images/background/FSBG006.jpg"]
         }), $("#layout-contactus").last()[0]);

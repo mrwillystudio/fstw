@@ -2,6 +2,7 @@
     $define.u = {};
 	$define.u.Mobile = (navigator.userAgent.match(/Android|iPhone|SymbianOS|Windows Phone|iPad|iPod|MQQBrowser/i) && navigator.userAgent.indexOf("Windows NT") == -1) ? true : false;
     $define.api = {};
+    console.log(navigator.userAgent);
 	var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -37,52 +38,59 @@
 	
 	/* PAGE Animation Function */
 	
+	var $s = {
+		st: 'style',
+		ts: 'transition'
+	}, $v = {
+		ae: 'all 1s ease',
+		una: 'all 0s ease'
+	}
+	
     function initAnimation(panel){
-	    if($define.u.Mobile) $('[id^=collapse]', panel).removeClass("in"); else if($('[id^=collapse]', panel).hasClass('in')) $('[id^=collapse]', panel).css('display', 'none');
-	    $('[data-animation-type="width"]', panel).css('transition', 'all 0s ease').css('width', '0%');
-        $('[data-animation-type="height"]', panel).css('transition', 'all 0s ease').css('height', '0%');
-        $('[data-animation-type="half-height"]', panel).css('transition', 'all 0s ease').css('height', '0%');
-        $('[data-animation-type="opacity"]', panel).css('transition', 'all 0s ease').css('opacity', '0');
-        $('[data-animation-css]', panel).css('transition', 'all 0s ease').css('opacity', '0');
+	    $('[data-animation-type="width"]', panel).css($s.ts, $v.una).css('width', '0%');
+        $('[data-animation-type="height"]', panel).css($s.ts, $v.una).css('height', '0%');
+        $('[data-animation-type="half-height"]', panel).css($s.ts, $v.una).css('height', '0%');
+        $('[data-animation-type="opacity"]', panel).css($s.ts, $v.una).css('opacity', '0');
+        $('[data-animation-css]', panel).css($s.ts, $s.ae).css('opacity', '0');
         setTimeout(function(){
-            if(!$define.u.Mobile && $('[id^=collapse]', panel).hasClass('in')) $('[id^=collapse]', panel).removeAttr('style').animateCss("fadeInDown");
-            $('[data-animation-type="width"]', panel).css('transition', 'all 1s ease').css('width', '100%');
-            $('[data-animation-type="height"]', panel).css('transition', 'all 1s ease').css('height', '100%');
-        	$('[data-animation-type="half-height"]', panel).css('transition', 'all 1s ease').css('height', '50%');
-    		$('[data-animation-type="opacity"]', panel).css('transition', 'all 1s ease').css('opacity', '1');
+            if(!$define.u.Mobile) $('[id^=collapse]', panel).removeAttr($s.st).animateCss("fadeInDown");
+            $('[data-animation-type="width"]', panel).css($s.ts, $v.ae).css('width', '100%');
+            $('[data-animation-type="height"]', panel).css($s.ts, $v.ae).css('height', '100%');
+        	$('[data-animation-type="half-height"]', panel).css($s.ts, $v.ae).css('height', '50%');
+    		$('[data-animation-type="opacity"]', panel).css($s.ts, $v.ae).css('opacity', '1');
             $('[data-animation-css]', panel).each(function(){
          		var self = $(this);
              	if($(this).attr('data-animation-delay'))
-		            setTimeout(function(){ self.removeAttr('style').animateCss(self.attr('data-animation-css')); }, parseInt(self.attr('data-animation-delay')));
+		            setTimeout(function(){ self.removeAttr($s.st).animateCss(self.attr('data-animation-css')); }, parseInt(self.attr('data-animation-delay')));
 		        else
-		        	self.removeAttr('style').animateCss(self.attr('data-animation-css'));
+		        	self.removeAttr($s.st).animateCss(self.attr('data-animation-css'));
             });
         }, 100);
     }
     
 	function PageAnimation(panel, delaytime=600){
-		if($define.u.Mobile) $('[id^=collapse]', panel).removeClass("in"); else if($('[id^=collapse]', panel).hasClass('in')) $('[id^=collapse]', panel).css('display', 'none');
-        $('[data-animation-type="width"]', panel).css('transition', 'all 0s ease').css('width', '0%');
-        $('[data-animation-type="height"]', panel).css('transition', 'all 0s ease').css('height', '0%');
-        $('[data-animation-type="half-height"]', panel).css('transition', 'all 0s ease').css('height', '0%');
-        $('[data-animation-type="opacity"]', panel).css('transition', 'all 0s ease').css('opacity', '0');
-        $('[data-animation-css]', panel).css('transition', 'all 0s ease').css('opacity', '0');
-        $('[data-animation-one]', panel).css('transition', 'all 0s ease').css('opacity', '0');
+		$('[id^=collapse]', panel).addClass("in");
+        $('[data-animation-type="width"]', panel).css($s.ts, $v.una).css('width', '0%');
+        $('[data-animation-type="height"]', panel).css($s.ts, $v.una).css('height', '0%');
+        $('[data-animation-type="half-height"]', panel).css($s.ts, $v.una).css('height', '0%');
+        $('[data-animation-type="opacity"]', panel).css($s.ts, $v.una).css('opacity', '0');
+        $('[data-animation-css]', panel).css($s.ts, $v.una).css('opacity', '0');
+        $('[data-animation-one]', panel).css($s.ts, $v.una).css('opacity', '0');
         setTimeout(function(){
-            if(!$define.u.Mobile && $('[id^=collapse]', panel).hasClass('in')) $('[id^=collapse]', panel).removeAttr('style').animateCss("fadeInDown");
-            $('[data-animation-type="width"]', panel).css('transition', 'all 1s ease').css('width', '100%');
-            $('[data-animation-type="height"]', panel).css('transition', 'all 1s ease').css('height', '100%');
-        	$('[data-animation-type="half-height"]', panel).css('transition', 'all 1s ease').css('height', '50%');
-    		$('[data-animation-type="opacity"]', panel).css('transition', 'all 1s ease').css('opacity', '1');
+            if(!$define.u.Mobile) $('[id^=collapse]', panel).removeAttr($s.st).animateCss("fadeInDown");
+            $('[data-animation-type="width"]', panel).css($s.ts, $v.ae).css('width', '100%');
+            $('[data-animation-type="height"]', panel).css($s.ts, $v.ae).css('height', '100%');
+        	$('[data-animation-type="half-height"]', panel).css($s.ts, $v.ae).css('height', '50%');
+    		$('[data-animation-type="opacity"]', panel).css($s.ts, $v.ae).css('opacity', '1');
             $('[data-animation-css]', panel).each(function(){
          		var self = $(this);
              	if($(this).attr('data-animation-delay'))
-		            setTimeout(function(){ self.removeAttr('style').animateCss(self.attr('data-animation-css')); }, parseInt(self.attr('data-animation-delay')));
+		            setTimeout(function(){ self.removeAttr($s.st).animateCss(self.attr('data-animation-css')); }, parseInt(self.attr('data-animation-delay')));
 		        else
-		        	self.removeAttr('style').animateCss(self.attr('data-animation-css'));
+		        	self.removeAttr($s.st).animateCss(self.attr('data-animation-css'));
             });
-            setTimeout(function(){ $('[data-animation-one]:nth-child(odd)', panel).removeAttr('style').css('opacity', '1'); }, 500);
-            setTimeout(function(){ $('[data-animation-one]:nth-child(even)', panel).removeAttr('style').css('opacity', '1'); }, 1000);
+            setTimeout(function(){ $('[data-animation-one]:nth-child(odd)', panel).removeAttr($s.st).css('opacity', '1'); }, 500);
+            setTimeout(function(){ $('[data-animation-one]:nth-child(even)', panel).removeAttr($s.st).css('opacity', '1'); }, 1000);
         }, delaytime);
 	}
 	
